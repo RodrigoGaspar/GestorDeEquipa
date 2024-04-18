@@ -12,13 +12,24 @@ public class JanelaDadosPessoais extends JFrame {
     private JButton btnContratar;
     private JButton btnDespedir;
     private JPanel painelDadosPessoais;
+    private JPanel jpDados;
     private DadosPessoaisJogadores dados;
-
+    private int numeroJogadores;
 
 
     public JanelaDadosPessoais()
     {
         dados = new DadosPessoaisJogadores();
+        numeroJogadores = 2;
+
+        lerDados();
+
+        for (int i = 0; i < numeroJogadores; i++)
+        {
+            JLabel o = new JLabel(dados.getNome());
+            jpDados.add(o);
+            new JLabel(dados.getNacionalidade());
+        }
 
         setContentPane(painelDadosPessoais);
         // Destrói esta janela, removendo-a completamente da memória.
@@ -32,9 +43,9 @@ public class JanelaDadosPessoais extends JFrame {
         ObjectOutputStream oos = null;
         try {
             File f =new
-                    File(System.getProperty("user.home")+File.separator+"minesfinder.recordes");
+                    File(System.getProperty("user.home")+File.separator+"GestorEquipas.dadosPessoais");
             oos = new ObjectOutputStream(new FileOutputStream(f));
-            oos.writeObject(recordesFacil);
+            oos.writeObject(dados);
             oos.close();
         } catch (IOException ex) {
             Logger.getLogger(JanelaDadosPessoais.class.getName()).log(Level.SEVERE, null,
@@ -49,15 +60,13 @@ public class JanelaDadosPessoais extends JFrame {
         if (f.canRead()) {
             try {
                 ois = new ObjectInputStream(new FileInputStream(f));
-                recordesFacil=(TabelaRecordes) ois.readObject();
-                recordesMedio=(TabelaRecordes) ois.readObject();
-                recordesDificil=(TabelaRecordes) ois.readObject();
+                dados=(DadosPessoaisJogadores) ois.readObject();
                 ois.close();
             } catch (IOException ex) {
-                Logger.getLogger(MinesFinder.class.getName()).log(Level.SEVERE,
+                Logger.getLogger(JanelaDadosPessoais.class.getName()).log(Level.SEVERE,
                         null, ex);
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(MinesFinder.class.getName()).log(Level.SEVERE,
+                Logger.getLogger(JanelaDadosPessoais.class.getName()).log(Level.SEVERE,
                         null, ex);
             }
         }
