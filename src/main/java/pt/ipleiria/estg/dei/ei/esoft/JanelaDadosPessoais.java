@@ -1,6 +1,7 @@
 package pt.ipleiria.estg.dei.ei.esoft;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
@@ -24,11 +25,13 @@ public class JanelaDadosPessoais extends JFrame {
 
         lerDados();
 
+        jpDados.setLayout(new GridLayout(numeroJogadores, 7));
         for (int i = 0; i < numeroJogadores; i++)
         {
-            JLabel o = new JLabel(dados.getNome());
+            JLabel o = new JLabel("OLA");
             jpDados.add(o);
-            new JLabel(dados.getNacionalidade());
+            JLabel a = new JLabel(dados.getNacionalidade() + "olala");
+            jpDados.add(a);
         }
 
         setContentPane(painelDadosPessoais);
