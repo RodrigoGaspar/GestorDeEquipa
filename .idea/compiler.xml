@@ -7,10 +7,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="GestorDeEquipa (1)" />
+        <module name="GestorDeEquipa" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="GestorDeEquipa" target="19" />
-    </bytecodeTargetLevel>
   </component>
 </project>

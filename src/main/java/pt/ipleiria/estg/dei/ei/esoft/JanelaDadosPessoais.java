@@ -21,18 +21,13 @@ public class JanelaDadosPessoais extends JFrame {
     public JanelaDadosPessoais()
     {
         dados = new DadosPessoaisJogadores();
-        numeroJogadores = 2;
+        numeroJogadores = 1;
 
         lerDados();
 
         jpDados.setLayout(new GridLayout(numeroJogadores, 7));
-        for (int i = 0; i < numeroJogadores; i++)
-        {
-            JLabel o = new JLabel("OLA");
-            jpDados.add(o);
-            JLabel a = new JLabel(dados.getNacionalidade() + "olala");
-            jpDados.add(a);
-        }
+
+        btnContratar.addActionListener(this::btnContratarActionPerformed);
 
         setContentPane(painelDadosPessoais);
         // Destrói esta janela, removendo-a completamente da memória.
@@ -40,6 +35,37 @@ public class JanelaDadosPessoais extends JFrame {
         // Causes this Window to be sized to fit the preferred size and layouts of its subcomponents.
         pack();
         setVisible(true);
+
+        dados.addTabelaRecordesListener(new DadosPessoaisJogadoresListener() {
+            @Override
+            public void dadosActualizados(DadosPessoaisJogadores dadosPessoais) {
+                dadosPessoaisActualizados(dados);
+            }
+        });
+    }
+
+
+    private void btnContratarActionPerformed(ActionEvent e) {
+        var janela = new AdicionarJogador(dados);
+        janela.setVisible(true);
+    }
+
+    private void dadosPessoaisActualizados(DadosPessoaisJogadores dadosPessoais) {
+        JLabel aux = new JLabel(dadosPessoais.getNome());
+        jpDados.add(aux);
+        aux = new JLabel(dadosPessoais.getNacionalidade());
+        jpDados.add(aux);
+        aux = new JLabel(dadosPessoais.getDataNascimento().toString());
+        jpDados.add(aux);
+        aux = new JLabel(dadosPessoais.getAltura().toString());
+        jpDados.add(aux);
+        aux = new JLabel(dadosPessoais.getPeso().toString());
+        jpDados.add(aux);
+        aux = new JLabel(dadosPessoais.getPosicaoPreferida());
+        jpDados.add(aux);
+        aux = new JLabel(dadosPessoais.getPeDominante());
+        jpDados.add(aux);
+        guardarDadosDisco();
     }
 
     private void guardarDadosDisco() {

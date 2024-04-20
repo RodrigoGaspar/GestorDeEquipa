@@ -5,13 +5,13 @@ import java.util.Date;
 import java.io.Serializable;
 
 public class DadosPessoaisJogadores implements Serializable {
-    String nome;
-    String nacionalidade;
-    Date dataNascimento;
-    Double altura;
-    Double peso;
-    String peDominante;
-    String posicaoPreferida;
+    private String nome;
+    private String nacionalidade;
+    private Date dataNascimento;
+    private Double altura;
+    private Double peso;
+    private String peDominante;
+    private String posicaoPreferida;
 
     private transient ArrayList<DadosPessoaisJogadoresListener> listeners;
 
@@ -32,6 +32,13 @@ public class DadosPessoaisJogadores implements Serializable {
     public void addTabelaRecordesListener(DadosPessoaisJogadoresListener list) {
         if (listeners == null) listeners = new ArrayList<>();
         listeners.add(list);
+    }
+
+    private void notifyRecordesActualizados() {
+        if (listeners != null) {
+            for (DadosPessoaisJogadoresListener list : listeners)
+                list.dadosActualizados(this);
+        }
     }
 
     public String getNome() {
@@ -62,9 +69,17 @@ public class DadosPessoaisJogadores implements Serializable {
         return posicaoPreferida;
     }
 
-    public void setJogador()
+    public void setJogador(String nome, String nacionalidade, Date dataNascimento, Double altura, Double peso, String peDominante, String posicaoPreferida)
     {
+        this.nome = nome;
+        this.nacionalidade = nacionalidade;
+        this.dataNascimento = dataNascimento;
+        this.altura = altura;
+        this.peso = peso;
+        this.peDominante = peDominante;
+        this.posicaoPreferida = posicaoPreferida;
 
+        notifyRecordesActualizados();
     }
 
     /*public void removeTabelaRecordesListener(DadosPessoaisJogadoresListener list) {
