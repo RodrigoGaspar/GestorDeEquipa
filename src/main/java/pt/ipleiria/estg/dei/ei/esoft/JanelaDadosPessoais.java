@@ -14,18 +14,17 @@ public class JanelaDadosPessoais extends JFrame {
     private JButton btnDespedir;
     private JPanel painelDadosPessoais;
     private JPanel jpDados;
-    private DadosPessoaisJogadores dados;
-    private int numeroJogadores;
+    private ListaDadosPessoaisJogadores dados;
 
 
     public JanelaDadosPessoais()
     {
-        dados = new DadosPessoaisJogadores();
-        numeroJogadores = 1;
+        dados = new ListaDadosPessoaisJogadores();
 
         lerDados();
 
-        jpDados.setLayout(new GridLayout(numeroJogadores, 7));
+        System.out.println(dados.getNumeroJogadores());
+        jpDados.setLayout(new GridLayout(dados.getNumeroJogadores(), 7));
 
         btnContratar.addActionListener(this::btnContratarActionPerformed);
 
@@ -36,16 +35,21 @@ public class JanelaDadosPessoais extends JFrame {
         pack();
         setVisible(true);
 
-        dados.addTabelaRecordesListener(new DadosPessoaisJogadoresListener() {
+        dados.addTabelaDadosListener(new ListaDadosPessoaisJogadoresListener() {
             @Override
-            public void dadosActualizados(DadosPessoaisJogadores dadosPessoais) {
-                dadosPessoaisActualizados(dados);
+            public void dadosActualizados(ListaDadosPessoaisJogadores dadosPessoais) {
+                for (DadosPessoaisJogadores jogador : dados.getDadosPessoaisJogadores()) {
+
+                    dadosPessoaisActualizados(jogador);
+                }
+
             }
         });
     }
 
 
     private void btnContratarActionPerformed(ActionEvent e) {
+
         var janela = new AdicionarJogador(dados);
         janela.setVisible(true);
     }
@@ -89,7 +93,7 @@ public class JanelaDadosPessoais extends JFrame {
         if (f.canRead()) {
             try {
                 ois = new ObjectInputStream(new FileInputStream(f));
-                dados=(DadosPessoaisJogadores) ois.readObject();
+                dados=(ListaDadosPessoaisJogadores) ois.readObject();
                 ois.close();
             } catch (IOException ex) {
                 Logger.getLogger(JanelaDadosPessoais.class.getName()).log(Level.SEVERE,

@@ -16,10 +16,10 @@ public class AdicionarJogador extends JFrame {
     private JButton btnCancelar;
     private JButton btnContratar;
 
-    private DadosPessoaisJogadores dados;
+    private ListaDadosPessoaisJogadores dados;
 
 
-    public AdicionarJogador(DadosPessoaisJogadores dados) {
+    public AdicionarJogador(ListaDadosPessoaisJogadores dados) {
         this.dados = dados;
 
         btnContratar.addActionListener(this::btnContratarActionPerformed);
@@ -34,7 +34,8 @@ public class AdicionarJogador extends JFrame {
 
 
     private void btnContratarActionPerformed(ActionEvent e) {
-        dados.setJogador(txtNome.getText(), "", new Date(2004, 04, 19), 0.0, 0.0, "", "");
-
+        dados.adicionarJogador(new DadosPessoaisJogadores());
+        dados.getNovoJogador().setJogador(txtNome.getText(), "", new Date(2004, 04, 19), 0.0, 0.0, "", "");
+        dados.atualizarDados();
     }
 }
