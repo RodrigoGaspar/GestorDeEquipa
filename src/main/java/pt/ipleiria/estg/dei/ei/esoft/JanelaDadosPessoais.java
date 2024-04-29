@@ -14,6 +14,7 @@ public class JanelaDadosPessoais extends JFrame {
     private JButton btnDespedir;
     private JPanel painelDadosPessoais;
     private JPanel jpDados;
+    private JTable table1;
     private ListaDadosPessoaisJogadores dados;
 
 
@@ -25,6 +26,10 @@ public class JanelaDadosPessoais extends JFrame {
 
         System.out.println(dados.getNumeroJogadores());
         jpDados.setLayout(new GridLayout(dados.getNumeroJogadores(), 7));
+        for (DadosPessoaisJogadores jogador : dados.getDadosPessoaisJogadores()) {
+            System.out.println(jogador.getNome());
+            dadosPessoaisActualizados(jogador);
+        }
 
         btnContratar.addActionListener(this::btnContratarActionPerformed);
 
@@ -39,10 +44,9 @@ public class JanelaDadosPessoais extends JFrame {
             @Override
             public void dadosActualizados(ListaDadosPessoaisJogadores dadosPessoais) {
                 for (DadosPessoaisJogadores jogador : dados.getDadosPessoaisJogadores()) {
-
+                    System.out.println(jogador.getNome());
                     dadosPessoaisActualizados(jogador);
                 }
-
             }
         });
     }
@@ -69,10 +73,10 @@ public class JanelaDadosPessoais extends JFrame {
         jpDados.add(aux);
         aux = new JLabel(dadosPessoais.getPeDominante());
         jpDados.add(aux);
-        guardarDadosDisco();
+        //guardarDadosDisco();
     }
 
-    private void guardarDadosDisco() {
+    /*private void guardarDadosDisco() {
         ObjectOutputStream oos = null;
         try {
             File f =new
@@ -84,7 +88,7 @@ public class JanelaDadosPessoais extends JFrame {
             Logger.getLogger(JanelaDadosPessoais.class.getName()).log(Level.SEVERE, null,
                     ex);
         }
-    }
+    }*/
 
     private void lerDados() {
         ObjectInputStream ois = null;
