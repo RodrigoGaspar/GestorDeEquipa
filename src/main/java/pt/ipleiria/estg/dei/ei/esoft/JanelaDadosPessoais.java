@@ -14,7 +14,8 @@ public class JanelaDadosPessoais extends JFrame {
     private JButton btnDespedir;
     private JPanel painelDadosPessoais;
     private JPanel jpDados;
-    private JTable table1;
+    private JTable table;
+    private JScrollBar scrollBar1;
     private ListaDadosPessoaisJogadores dados;
 
 
@@ -30,6 +31,8 @@ public class JanelaDadosPessoais extends JFrame {
             System.out.println(jogador.getNome());
             dadosPessoaisActualizados(jogador);
         }
+
+        //table.add("dados.getDadosPessoaisJogadores(), dados.getNumeroJogadores()", new JLabel());
 
         btnContratar.addActionListener(this::btnContratarActionPerformed);
 
