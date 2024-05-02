@@ -85,4 +85,9 @@ public class DadosPessoaisJogadores implements Serializable {
     /*public void removeTabelaRecordesListener(DadosPessoaisJogadoresListener list) {
         if (listeners != null) listeners.remove(list);
     }*/
+
+    public String getDadosString()
+    {
+        return getNome() + "," + getNacionalidade() + "," + dataNascimento.getDate() + "/" + (dataNascimento.getMonth() + 1) + "/" + (dataNascimento.getYear() + 1900) + "," + getAltura() + "," + getPeso() + "," + getPeDominante() + "," + getPosicaoPreferida();
+    }
 }

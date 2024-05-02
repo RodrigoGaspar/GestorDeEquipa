@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -15,8 +16,10 @@ public class JanelaDadosPessoais extends JFrame {
     private JPanel painelDadosPessoais;
     private JPanel jpDados;
     private JTable table;
-    private JScrollBar scrollBar1;
+    private JScrollPane scrollBar;
     private ListaDadosPessoaisJogadores dados;
+    private Object[][] data;
+    private String[] col;
 
 
     public JanelaDadosPessoais()
@@ -25,14 +28,11 @@ public class JanelaDadosPessoais extends JFrame {
 
         lerDados();
 
-        System.out.println(dados.getNumeroJogadores());
-        jpDados.setLayout(new GridLayout(dados.getNumeroJogadores(), 7));
-        for (DadosPessoaisJogadores jogador : dados.getDadosPessoaisJogadores()) {
-            System.out.println(jogador.getNome());
-            dadosPessoaisActualizados(jogador);
-        }
-
-        //table.add("dados.getDadosPessoaisJogadores(), dados.getNumeroJogadores()", new JLabel());
+        col = new String[]{"Nome", "Nacionalidade", "Data", "Altura", "Peso", "Pé Dominante", "Posição Preferida"};
+        data = getData();
+        table = new JTable(data, col);
+        scrollBar = new JScrollPane(table);
+        jpDados.add(table);
 
         btnContratar.addActionListener(this::btnContratarActionPerformed);
 
@@ -59,6 +59,24 @@ public class JanelaDadosPessoais extends JFrame {
 
         var janela = new AdicionarJogador(dados);
         janela.setVisible(true);
+    }
+
+    private Object[][] getData()
+    {
+        try
+        {
+            Object[][] data = new Object[dados.getNumeroJogadores()][7];
+            for (int i = 0; i < dados.getNumeroJogadores(); i++)
+            {
+                data[i] = dados.getDadosPessoaisJogadores().get(i).getDadosString().split(",");
+            }
+            return data;
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     private void dadosPessoaisActualizados(DadosPessoaisJogadores dadosPessoais) {

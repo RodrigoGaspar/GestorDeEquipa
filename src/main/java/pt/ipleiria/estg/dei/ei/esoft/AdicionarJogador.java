@@ -17,21 +17,27 @@ public class AdicionarJogador extends JFrame {
     private JTextField textDia;
     private JTextField textAltura;
     private JTextField textPeso;
-    private JTextField textField6;
     private JTextField textPosicaoPreferida;
     private JPanel painelContratar;
     private JButton btnCancelar;
     private JButton btnContratar;
     private JTextField textMes;
     private JTextField textAno;
+    private JButton esquerdoButton;
+    private JButton direitoButton;
+    private String peDominante;
 
     private ListaDadosPessoaisJogadores dados;
 
 
     public AdicionarJogador(ListaDadosPessoaisJogadores dados) {
+        peDominante = "";
         this.dados = dados;
 
         btnContratar.addActionListener(this::btnContratarActionPerformed);
+        btnCancelar.addActionListener(this::btnCancelarActionPerformed);
+        direitoButton.addActionListener(this::btnDireitoActionPerformed);
+        esquerdoButton.addActionListener(this::btnEsquerdoActionPerformed);
 
         setContentPane(painelContratar);
         // Destrói esta janela, removendo-a completamente da memória.
@@ -53,6 +59,24 @@ public class AdicionarJogador extends JFrame {
         guardarDadosDisco();
     }
 
+    private void btnCancelarActionPerformed(ActionEvent e) {
+        setVisible(false);
+    }
+
+    private void btnDireitoActionPerformed(ActionEvent e)
+    {
+        peDominante = "Direito";
+        direitoButton.setBackground(Color.gray);
+        esquerdoButton.setBackground(Color.white);
+    }
+
+    private void btnEsquerdoActionPerformed(ActionEvent e)
+    {
+        peDominante = "Esquerdo";
+        direitoButton.setBackground(Color.white);
+        esquerdoButton.setBackground(Color.gray);
+    }
+
     private boolean dadosErrados()
     {
         boolean erroNome = validarString(txtNome);
@@ -62,6 +86,13 @@ public class AdicionarJogador extends JFrame {
         boolean erroAltura = validarDouble(textAltura);
         boolean erroData = false;
         boolean erroPe = false;
+        if (peDominante.compareTo("") == 0)
+        {
+            erroPe = true;
+            esquerdoButton.setBackground(Color.red);
+            direitoButton.setBackground(Color.red);
+        }
+
 
         Date date = new Date();
         int ano = Integer.parseInt(textAno.getText());
